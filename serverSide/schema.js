@@ -259,49 +259,50 @@ const schema = new GraphQLSchema({
           country: { type: new GraphQLNonNull(GraphQLString) },
         },
         resolve(parent, args) {
-          let artistIncluded = false
-          let albumIncluded = false
-          let artistId
-          artists.map(x => {
+          let artistIncluded = false;
+          let albumIncluded = false;
+          let artistId;
+          artists.map((x) => {
             if (x.name === args.artist) {
-              artistId = x.id
-              artistIncluded = true
-            }
-            else artistId = artists.length + 1
-          })
-          let newArtist = new ArtistType({
+              artistId = x.id;
+              artistIncluded = true;
+            } else artistId = artists.length + 1;
+          });
+          let newArtist = {
             id: artistId,
             name: args.artist,
             country: args.country,
             genre: args.genre,
-          });
+          };
           artists.push(newArtist);
 
-          let albumId
-          albums.map(x => {
+          let albumId;
+          albums.map((x) => {
             if (x.name === args.album) {
-              albumId = x.id
-              albumIncluded = true
-            }
-            else albumId = albums.length + 1 
-          })
-          let newAlbum = new AlbumType({
+              albumId = x.id;
+              albumIncluded = true;
+            } else albumId = albums.length + 1;
+          });
+          let newAlbum = {
             id: albumId,
             name: args.album,
-            creatorId: artistId
-          })
-          albums.push(newAlbum)
+            creatorId: artistId,
+          };
+          albums.push(newAlbum);
 
-
-          let newSong = new SongType({
+          let newSong = {
             id: songs.length + 1,
-            name: args.name,
+            name: args.song,
             creatorId: artistId,
             albumId: albumId,
-          });
-          if (artistIncluded && albumIncluded && songs.some(x => x.name === args.song)) return
-          else songs.push(newSong)
-          
+          };
+          if (
+            artistIncluded &&
+            albumIncluded &&
+            songs.some((x) => x.name === args.song)
+          )
+            return;
+          else songs.push(newSong);
         },
       },
     }),
