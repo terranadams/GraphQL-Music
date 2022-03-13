@@ -119,22 +119,22 @@ let albums = [
     creatorId: 2,
   },
   {
-    id: 3,
+    id: 5,
     name: "Self Portrait - EP",
     creatorId: 3,
   },
   {
-    id: 4,
+    id: 6,
     name: "Turn the Light On",
     creatorId: 4,
   },
   {
-    id: 5,
+    id: 7,
     name: "Heaven In Hiding",
     creatorId: 4,
   },
   {
-    id: 6,
+    id: 8,
     name: "Good Kid, M.A.A.D City",
     creatorId: 5,
   },
@@ -167,13 +167,18 @@ const SongType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLInt },
     name: { type: GraphQLString },
-    artist: { type: GraphQLString },
-    album: { type: GraphQLString },
+    albumId: { type: GraphQLInt },
     creatorId: { type: GraphQLInt },
-    creator: {
+    artist: {
       type: ArtistType,
       resolve: (parent, args) => {
         return _.find(artists, { id: parent.creatorId });
+      },
+    },
+    album: {
+      type: AlbumType,
+      resolve: (parent, args) => {
+        return _.find(albums, { id: parent.albumId });
       },
     },
   }),
