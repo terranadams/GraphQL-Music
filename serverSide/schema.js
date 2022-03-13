@@ -239,31 +239,69 @@ const schema = new GraphQLSchema({
       },
       song: {
         type: SongType,
-        args: {id: {type: GraphQLInt}},
+        args: { id: { type: GraphQLInt } },
         resolve: (parent, args) => {
-          return songs.find(song => song.id === args.id)
-        }
-      }
+          return songs.find((song) => song.id === args.id);
+        },
+      },
     }),
   }),
   mutation: new GraphQLObjectType({
     name: "Mutation",
     fields: () => ({
-      addArtist: {
+      addMusic: {
         type: ArtistType,
         args: {
-          name: { type: new GraphQLNonNull(GraphQLString) },
-          country: { type: new GraphQLNonNull(GraphQLString) },
+          artist: { type: new GraphQLNonNull(GraphQLString) },
+          song: { type: new GraphQLNonNull(GraphQLString) },
+          album: { type: new GraphQLNonNull(GraphQLString) },
           genre: { type: new GraphQLNonNull(GraphQLString) },
+          country: { type: new GraphQLNonNull(GraphQLString) },
         },
         resolve(parent, args) {
-          let newArtist = {
-            name: args.name,
+          let artistIncluded = false
+          let albumIncluded = false
+          let artistId
+          artists.map(x => {
+            if (x.name === args.artist) {
+              artistId = x.id
+              artistIncluded = true
+            }
+            else artistId = artists.length + 1
+          })
+          let newArtist = new ArtistType({
+            id: artistId,
+            name: args.artist,
             country: args.country,
             genre: args.genre,
-            id: artists.length + 1,
-          };
+          });
           artists.push(newArtist);
+
+          let albumId
+          albums.map(x => {
+            if (x.name === args.album) {
+              albumId = x.id
+              albumIncluded = true
+            }
+            else albumId = albums.length + 1 
+          })
+          let newAlbum = new AlbumType({
+            id: albumId,
+            name: args.album,
+            creatorId: artistId
+          })
+          albums.push(newAlbum)
+
+
+          let newSong = new SongType({
+            id: songs.length + 1,
+            name: args.name,
+            creatorId: artistId,
+            albumId: albumId,
+          });
+          if (artistIncluded && albumIncluded && songs.some(x => x.name === args.song)) return
+          else songs.push(newSong)
+          
         },
       },
     }),
