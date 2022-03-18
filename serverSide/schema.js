@@ -191,7 +191,7 @@ const AlbumType = new GraphQLObjectType({
     id: { type: GraphQLInt },
     name: { type: GraphQLString },
     creatorId: { type: GraphQLInt },
-    creator: {
+    artist: {
       type: ArtistType,
       resolve: (parent, args) => {
         return _.find(artists, { id: parent.creatorId });
