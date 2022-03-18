@@ -10,7 +10,7 @@ import {
 
 function App() {
   const client = new ApolloClient({
-    uri: "https://48p1r2roz4.sse.codesandbox.io",
+    uri: "http://localhost:4000/graphql",
     cache: new InMemoryCache(),
   });
 
@@ -18,9 +18,15 @@ function App() {
     client
       .query({
         query: gql`
-          query GetRates {
-            rates(currency: "USD") {
-              currency
+          query {
+            albums {
+              name
+              artist {
+                name
+                albums {
+                  name
+                }
+              }
             }
           }
         `,
