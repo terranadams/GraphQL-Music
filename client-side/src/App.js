@@ -1,37 +1,46 @@
 import { useState } from "react";
 import GetQueryButton from "./components/GetQueryButton";
+import { GET_ALL_ARTISTS } from "./queries/queries";
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   useQuery,
+  useLazyQuery,
   gql,
 } from "@apollo/client";
 
 function App() {
-  const client = new ApolloClient({
-    uri: "http://localhost:4000/graphql",
-    cache: new InMemoryCache(),
-  });
+ 
+  
+  const [getAllArtists, { loading, data }] = useLazyQuery(GET_ALL_ARTISTS);
+
+  if (loading) return <p>Loading ...</p>;
+  if (data) {
+    console.log(data);
+  }
 
   const handleGet = () => {
-    client
-      .query({
-        query: gql`
-          query {
-            albums {
-              name
-              artist {
-                name
-                albums {
-                  name
-                }
-              }
-            }
-          }
-        `,
-      })
-      .then((result) => console.log(result));
+    getAllArtists()
+    console.log(data)
+    // ALTERNATE METHOD
+    // client
+    //   .query({
+    //     query: gql`
+    //       query {
+    //         albums {
+    //           name
+    //           artist {
+    //             name
+    //             albums {
+    //               name
+    //             }
+    //           }
+    //         }
+    //       }
+    //     `,
+    //   })
+    //   .then((result) => console.log(result));
   };
 
   return (
