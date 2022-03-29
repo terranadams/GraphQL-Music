@@ -12,7 +12,7 @@ const GET_ALL_ARTISTS = gql`
 `;
 
 const GET_SPECIFIC_ARTIST = gql`
-    query($id: ID) {
+    query($id: Int) {
         artist(id: $id){
             id
             name
