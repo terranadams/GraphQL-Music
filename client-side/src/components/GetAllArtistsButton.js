@@ -6,12 +6,10 @@ const GetQueryButton = () => {
 
   const [getAllArtists, { loading, data }] = useLazyQuery(GET_ALL_ARTISTS);
   
-  // if (loading) console.log("Loading...");
   if (data) console.log('Get ALL artists: ',data)
   
   const handleGet = () => {
     getAllArtists()
-    // if (data) console.log(data)
     // ALTERNATE METHOD
     // client
     //   .query({
