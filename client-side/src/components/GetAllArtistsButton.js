@@ -6,8 +6,8 @@ const GetQueryButton = () => {
 
   const [getAllArtists, { loading, data }] = useLazyQuery(GET_ALL_ARTISTS);
   
-  if (loading) console.log("Loading...");
-  if (data) console.log(data)
+  // if (loading) console.log("Loading...");
+  if (data) console.log('Get ALL artists: ',data)
   
   const handleGet = () => {
     getAllArtists()
@@ -32,7 +32,7 @@ const GetQueryButton = () => {
     //   .then((result) => console.log(result));
   };
   return (
-    <button className="button" onClick={handleGet}>Get some artists!</button>
+    <button className="button" onClick={handleGet}>Get All Artists</button>
   )
 }
 

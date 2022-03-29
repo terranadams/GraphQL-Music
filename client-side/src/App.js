@@ -1,5 +1,5 @@
 import { useState } from "react";
-import GetQueryButton from "./components/GetQueryButton";
+import GetAllArtistsButton from "./components/GetAllArtistsButton";
 import { GET_ALL_ARTISTS } from "./queries/queries";
 import {
   ApolloClient,
@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="buttonBox">
-      <GetQueryButton />
+      <GetAllArtistsButton />
       <GetSpecificArtistButton />
     </div>
   );

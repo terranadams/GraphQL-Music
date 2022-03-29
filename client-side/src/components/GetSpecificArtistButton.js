@@ -8,7 +8,7 @@ const GetSpecificArtistButton = () => {
     variables: {id: 3}
   })
 
-  if (data) console.log(data)
+  if (data) console.log('Get SPECIFIC artist: ',data)
 
   const handleSubmit = (e) => {
     e.preventDefault()
