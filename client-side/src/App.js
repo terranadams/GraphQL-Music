@@ -1,6 +1,4 @@
 import { useState } from "react";
-import GetAllArtistsButton from "./components/GetAllArtistsButton";
-import { GET_ALL_ARTISTS } from "./queries/queries";
 import {
   ApolloClient,
   InMemoryCache,
@@ -9,7 +7,9 @@ import {
   useLazyQuery,
   gql,
 } from "@apollo/client";
+import GetAllArtistsButton from "./components/GetAllArtistsButton";
 import GetSpecificArtistButton from "./components/GetSpecificArtistButton";
+import GetAllSongsButton from './components/GetAllSongsButton'
 
 function App() {
  
@@ -18,6 +18,7 @@ function App() {
     <div className="buttonBox">
       <GetAllArtistsButton />
       <GetSpecificArtistButton />
+      <GetAllSongsButton />
     </div>
   );
 }
